@@ -1,15 +1,20 @@
 // scripts/deploy.js
 
+const { createPublicClient, http, createWalletClient, parseEther } = require('viem');
+
 async function main() {
     console.log("Starting deployment...");
     
-    const SitusMetadata = await ethers.getContractFactory("SitusMetadata");
+    const publicClient = await hre.viem.getPublicClient();
+    const [wallet] = await hre.viem.getWalletClients();
+    
     console.log("Contract factory created");
     
-    const situsMetadata = await SitusMetadata.deploy();
-    console.log("Deployment transaction sent");
+    const situsMetadata = await hre.viem.deployContract("SitusMetadata", [], {
+        client: { public: publicClient, wallet }
+    });
     
-    await situsMetadata.deployed();
+    console.log("Deployment transaction sent");
     console.log("SitusMetadata deployed to:", situsMetadata.address);
 }
 

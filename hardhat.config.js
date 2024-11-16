@@ -1,20 +1,17 @@
 require("dotenv").config();
-require("@nomiclabs/hardhat-ethers");
+require("@nomicfoundation/hardhat-viem");
 require("@nomicfoundation/hardhat-verify");
 
 module.exports = {
   solidity: {
-    compilers: [{
-      version: "0.8.20",
-      settings: {
-        optimizer: {
-          enabled: true,
-          runs: 200
-        },
-        evmVersion: "london",
-        viaIR: false,
-      }
-    }]
+    version: "0.8.20",
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 200
+      },
+      evmVersion: "paris"
+    }
   },
   networks: {
     baseMainnet: {
@@ -24,10 +21,12 @@ module.exports = {
     }
   },
   etherscan: {
-    apiKey: process.env.BASESCAN_API_KEY,
+    apiKey: {
+      base: process.env.BASESCAN_API_KEY
+    },
     customChains: [
       {
-        network: "baseMainnet",
+        network: "base",
         chainId: 8453,
         urls: {
           apiURL: "https://api.basescan.org/api",
