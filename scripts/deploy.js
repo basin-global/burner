@@ -1,11 +1,14 @@
 // scripts/deploy.js
 
 async function main() {
-    // Retrieve the contract factory
+    console.log("Starting deployment...");
+    
     const SitusMetadata = await ethers.getContractFactory("SitusMetadata");
-
-    // Deploy the SitusMetadata contract
+    console.log("Contract factory created");
+    
     const situsMetadata = await SitusMetadata.deploy();
+    console.log("Deployment transaction sent");
+    
     await situsMetadata.deployed();
     console.log("SitusMetadata deployed to:", situsMetadata.address);
 }
