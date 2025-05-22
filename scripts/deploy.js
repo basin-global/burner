@@ -1,21 +1,16 @@
 // scripts/deploy.js
-
-const { createPublicClient, http, createWalletClient, parseEther } = require('viem');
+const hre = require("hardhat");
 
 async function main() {
     console.log("Starting deployment...");
     
-    const publicClient = await hre.viem.getPublicClient();
-    const [wallet] = await hre.viem.getWalletClients();
+    const Burner = await hre.ethers.getContractFactory("Burner");
+    const burner = await Burner.deploy();
     
-    console.log("Contract factory created");
-    
-    const situsMetadata = await hre.viem.deployContract("SitusMetadata", [], {
-        client: { public: publicClient, wallet }
-    });
+    await burner.waitForDeployment();
     
     console.log("Deployment transaction sent");
-    console.log("SitusMetadata deployed to:", situsMetadata.address);
+    console.log("Burner deployed to:", await burner.getAddress());
 }
 
 main()

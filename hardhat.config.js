@@ -1,5 +1,5 @@
 require("dotenv").config();
-require("@nomicfoundation/hardhat-viem");
+require("@nomicfoundation/hardhat-toolbox");
 require("@nomicfoundation/hardhat-verify");
 
 module.exports = {
@@ -18,11 +18,17 @@ module.exports = {
       url: "https://mainnet.base.org",
       accounts: [`0x${process.env.DEPLOYER_PRIVATE_KEY}`],
       chainId: 8453
+    },
+    baseSepolia: {
+      url: process.env.BASE_SEPOLIA_RPC_URL,
+      accounts: [`0x${process.env.DEPLOYER_PRIVATE_KEY}`],
+      chainId: 84532
     }
   },
   etherscan: {
     apiKey: {
-      base: process.env.BASESCAN_API_KEY
+      base: process.env.BASESCAN_API_KEY,
+      baseSepolia: process.env.BASESCAN_API_KEY
     },
     customChains: [
       {
@@ -31,6 +37,14 @@ module.exports = {
         urls: {
           apiURL: "https://api.basescan.org/api",
           browserURL: "https://basescan.org"
+        }
+      },
+      {
+        network: "baseSepolia",
+        chainId: 84532,
+        urls: {
+          apiURL: "https://api-sepolia.basescan.org/api",
+          browserURL: "https://sepolia.basescan.org"
         }
       }
     ]

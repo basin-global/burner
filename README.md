@@ -1,15 +1,26 @@
-# SITUS Metadata Contract
+# Burner Contract
 
-A simple metadata contract for SITUS OG contracts.
+A simple Solidity contract that burns ERC20 tokens and rewards the caller.
 
-## Deployments
-with viem
+## What it does
 
-### Base Mainnet
-- Contract: [`0x77e8030519eb38976df64a58ffe594c8e731afc5`](https://basescan.org/address/0x77e8030519eb38976df64a58ffe594c8e731afc5)
+- Burns 99% of any ERC20 tokens sent to it
+- Rewards the caller with 1% of the burned tokens
+- If a token doesn't have a burn function, it sends the tokens to the zero address instead
 
-## Implementation Details
-- Returns metadata URL in format: `https://ensitus.xyz/api/metadata/{tld_address}/{token_id}`
-- Uses OpenZeppelin's Strings library
-- Pure function with no state changes
-- Solidity version: 0.8.20
+## How to use
+
+1. Send ERC20 tokens to the contract
+2. Call the `burn()` function
+3. You'll receive 1% of the tokens as a reward
+
+## Features
+
+- Safe token handling using OpenZeppelin's SafeERC20
+- Protection against reentrancy attacks
+- Automatic fallback to zero address if burn function isn't available
+
+## Requirements
+
+- Solidity ^0.8.20
+- OpenZeppelin contracts
