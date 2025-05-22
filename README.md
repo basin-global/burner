@@ -1,6 +1,36 @@
 # Burner Contract
 
-A simple Solidity contract that burns ERC20 tokens and rewards the caller.
+A smart contract that burns 99% of held ERC20 tokens and rewards the caller with 1%.
+
+## Deployed Contract
+
+- **Network:** Base Mainnet
+- **Contract Address:** `0x9f476025aec83e91ebc09ecfb0654391f7f14e59`
+- **Verified on Basescan:** [View Contract](https://basescan.org/address/0x9f476025aec83e91ebc09ecfb0654391f7f14e59)
+
+## Features
+
+- Burns 99% of held ERC20 tokens
+- Rewards caller with 1% of tokens
+- If token has no burn function, sends to zero address instead
+- Includes reentrancy protection
+- Uses SafeERC20 for secure token transfers
+
+## Development
+
+```bash
+# Install dependencies
+npm install
+
+# Compile contracts
+npx hardhat compile
+
+# Deploy to Base Mainnet
+npx hardhat run scripts/deploy.js --network baseMainnet
+
+# Verify contract
+npx hardhat verify --network baseMainnet <CONTRACT_ADDRESS>
+```
 
 ## What it does
 
@@ -13,12 +43,6 @@ A simple Solidity contract that burns ERC20 tokens and rewards the caller.
 1. Send ERC20 tokens to the contract
 2. Call the `burn()` function
 3. You'll receive 1% of the tokens as a reward
-
-## Features
-
-- Safe token handling using OpenZeppelin's SafeERC20
-- Protection against reentrancy attacks
-- Automatic fallback to zero address if burn function isn't available
 
 ## Requirements
 
